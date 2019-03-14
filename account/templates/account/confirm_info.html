@@ -1,0 +1,15 @@
+<h1>会員情報の変更</h1>
+<p>以下の内容でお間違いないでしょうか。よろしければ"はい"を、もう一度訂正する場合は"訂正する"をクリックしてください。</p>
+<ul>
+    <p>会員番号:{{ user.username }}</p>
+    <ul>
+        <h3>アカウント名</h3>
+        <div>
+            <ul>
+                <p>アカウント名: {{ account.AccountName }}</p>
+                <p>最終更新日: {{ account.ac_up_date|linebreaksbr }}</p>
+                <p><a href="{% url 'addressbook:ChangeInfo' pk=account.pk usernumber=usernumber %}">訂正する</a></p>
+            </ul>
+        </div>
+    </ul>
+    <p><a type=button href="{% url 'addressbook:Succeed' usernumber=usernumber %}">はい</a></p>

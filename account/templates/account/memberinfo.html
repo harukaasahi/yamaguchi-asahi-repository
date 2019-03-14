@@ -1,0 +1,41 @@
+{% block content %}
+会員情報
+<table class="table">
+    <tbody>
+        <tr>
+            <th>会員番号</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>メールアドレス</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        <tr>
+            <th>姓</th>
+            <td>{{ user.last_name }}</td>
+        </tr>
+        <tr>
+            <th>名</th>
+            <td>{{ user.first_name }}</td>
+        </tr>
+    </tbody>
+</table>
+<p>
+    <h3>住所</h3>
+</p>
+<ol>{% for ad in address %}
+    <div>
+        <li>
+            <p>郵便番号: {{ ad.postcode}}</p>
+            <p>都道府県: {{ ad.prefecture}}</p>
+            <p>市町村: {{ ad.city}}</p>
+            <p>その他の住所: {{ ad.zip}}</p>
+            <p>建物名: {{ ad.building}}</p>
+            <p>建物名: {{ ad.room}}</p>
+        </li>
+
+    </div>
+    {% endfor %}</ol>
+
+<a href="{% url 'account:changeinfo'  pk=user.pk %}">会員情報の変更</a>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% block content %}
+会員情報の変更
+<form action="" method="POST">
+    {{ form.non_field_errors }}
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+        {{ form.formset.as_table}}
+    </table>
+    <button type="submit" class="btn btn-success btn-lg">変更</button>
+</form>
+{% endblock %}
