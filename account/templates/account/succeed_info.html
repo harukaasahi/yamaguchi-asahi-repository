@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>会員情報の変更完了</h1>
+
+<p>登録内容の変更を確認しました。ありがとうございました。</p>
+
+<p><a href="/">ホームへ戻る</a></p>
+<p><a href="{% url 'account:memberinfo'  pk=user.pk %}">会員情報へ戻る</a></p>
+{% endblock %}

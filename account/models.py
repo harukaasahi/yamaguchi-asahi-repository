@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.base_user import BaseUserManager
+from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, AbstractUser
-from django.contrib.auth.base_user import AbstractBaseUser
 from django.conf import settings
 from django.utils import timezone
+from django.core.validators import RegexValidator
 
 
 ''' class User(AbstractUser):
@@ -41,6 +41,7 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin):
+    # ユーザー(email,username,last_name,first_name)
     email = models.EmailField(_('email address'))
     username = models.CharField(
         verbose_name='会員番号', max_length=10, unique=True)
@@ -57,12 +58,18 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Address(models.Model):
+    # 住所(account_number(UserのusernameよりForeignKey),postcode,prefecture,city,zip,building,room,created_times)
     account_number = models.ForeignKey(
         User, on_delete=models.CASCADE)  # ,verbose_name='会員番号'settings.AUTH_USER_MODEL
-    postcode = models.CharField('郵便番号', max_length=7, blank=True)  # 郵便番号
+    postal_code_regex = RegexValidator(regex=r'^[0-9]+$')
+    postcode = models.CharField(
+        '郵便番号', validators=[postal_code_regex], max_length=7, blank=True)  # 郵便番号
     prefecture = models.CharField('都道府県', max_length=10, blank=True)  # 県
-    city = models.CharField('市町村区', max_length=30, blank=True)  # 市町村区
+    city = models.CharField('市区町村', max_length=30, blank=True)  # 市町村区
     zip = models.CharField('丁番号', max_length=10, blank=True)  # 丁番号
     building = models.CharField('建物名', max_length=30, blank=True)  # 建物
     room = models.CharField('部屋番号', max_length=10, blank=True)  # 部屋番号
+    tel_number_regex = RegexValidator(regex=r'^[0-9]+$')
+    tell = models.CharField(
+        '電話番号', validators=[tel_number_regex], max_length=11, blank=True)
     created_times = models.DateTimeField('作成日', default=timezone.now)

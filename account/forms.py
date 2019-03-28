@@ -8,7 +8,7 @@ User = get_user_model()
 
 
 class SignUpForm(UserCreationForm):
-    """ユーザー登録用フォーム"""
+    # ユーザー登録用フォーム
     class Meta:
         model = User
         fields = ('username', 'email')
@@ -37,7 +37,7 @@ class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
         fields = ('postcode', 'prefecture', 'city',
-                  'zip', 'building', 'room',)
+                  'zip', 'building', 'room','tell',)
 
 
 AddressFormSet = forms.inlineformset_factory(
@@ -49,12 +49,13 @@ AddressFormSet = forms.inlineformset_factory(
 
 
 class ChangeinfoForm(ModelFormWithFormSetMixin, forms.ModelForm):
-    """ユーザー情報更新フォーム"""
+    # ユーザー情報更新フォーム
+    # AddressFormとくっつける
     formset_class = AddressFormSet
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'last_name', 'first_name',)
+        fields = ('email', 'last_name', 'first_name',)
 
     ''' def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

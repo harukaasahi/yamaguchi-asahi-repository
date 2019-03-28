@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf8">
+    <title>{% block title %}会員サイト{% endblock%}</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <ul>
+                    {% if user.id  %}
+                    <!-- ログイン時 -->
+                    {{ user.username }}様
+                    <a href="{% url 'account:memberinfo'  pk=user.pk %}">会員情報の確認</a>
+                    <a href="{% url 'logout' %}">ログアウト</a>
+                    {% else %}
+                    <!-- ログインしていない時 -->
+                    <a href="{% url 'login' %}">ログイン</a>
+                    <a href="{% url 'account:signup'%}">会員登録</a>
+                    {% endif %}
+                </ul>
+            </nav>
+        </header>
+        <div class="content">
+            {% block content %}{% endblock%}
+        </div>
+    </div>
+</body>
+
+</html>

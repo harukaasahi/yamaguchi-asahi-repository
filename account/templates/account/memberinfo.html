@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% block content %}
 会員情報
 <table class="table">
@@ -28,10 +29,11 @@
         <li>
             <p>郵便番号: {{ ad.postcode}}</p>
             <p>都道府県: {{ ad.prefecture}}</p>
-            <p>市町村: {{ ad.city}}</p>
+            <p>市区町村: {{ ad.city}}</p>
             <p>その他の住所: {{ ad.zip}}</p>
             <p>建物名: {{ ad.building}}</p>
-            <p>建物名: {{ ad.room}}</p>
+            <p>部屋番号: {{ ad.room}}</p>
+            <p>電話番号: {{ ad.tell }}</p>
         </li>
 
     </div>

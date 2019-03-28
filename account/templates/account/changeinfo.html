@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% block content %}
 会員情報の変更
 <form action="" method="POST">
@@ -7,6 +8,7 @@
         {{ form.as_table }}
         {{ form.formset.as_table}}
     </table>
-    <button type="submit" class="btn btn-success btn-lg">変更</button>
+    <button type="submit" class="btn btn-success btn-lg">確認する</button>
+    <p><a href="{% url 'account:memberinfo'  pk=user.pk %}">前のページに戻る</a></p>
 </form>
 {% endblock %}

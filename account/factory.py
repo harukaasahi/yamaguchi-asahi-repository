@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-# 会員登録時に住所登録
+# 会員登録時に空欄の住所登録
 
 class UserToAddress_AddressFactory(factory.django.DjangoModelFactory):
     class Meta:
