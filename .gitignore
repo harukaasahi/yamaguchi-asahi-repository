@@ -3,5 +3,4 @@ __pycache__
 myvenv
 db.sqlite3
 migrations
-pipfile
-pipfile.lock
+.DS_Store

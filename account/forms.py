@@ -31,14 +31,42 @@ class ModelFormWithFormSetMixin:
         self.formset.save(commit)
         return saved_instance
 
-
-class AddressForm(forms.ModelForm):
+class AddressForm(forms.ModelForm):#
 
     class Meta:
         model = Address
         fields = ('postcode', 'prefecture', 'city',
                   'zip', 'building', 'room','tell',)
-
+        widgets = {
+            'postcode':forms.TextInput(
+                #attrsでp-postal-codeを指定
+                attrs={'class': 'p-postal-code','placeholder': '記入例：8900053',},
+                ),
+            'prefecture': forms.TextInput(
+                #attrsでp-regionを指定
+                attrs={'class': 'p-region','placeholder': '記入例：鹿児島県'},
+                ),
+            'city': forms.TextInput(
+                #attrsでp-locality p-street-address p-extended-addressを指定
+                attrs={'class': 'p-locality p-street-address p-extended-address',
+                'placeholder': '記入例：鹿児島市中央町'},
+                ),
+            'zip': forms.TextInput(
+                #attrsでp-locality p-street-address p-extended-addressを指
+                attrs={'class': '','placeholder': '記入例：１０－１'},
+                ),
+            'building': forms.TextInput(
+                #attrsでp-locality p-street-address p-extended-addressを指定
+                attrs={'class': '','placeholder': '記入例：キャンセビル'},
+                ),
+            'room': forms.TextInput(
+                attrs={'class': '','placeholder': '記入例：１２３号室'},
+                ),
+            'tell': forms.TextInput(
+                attrs={'class': '','placeholder': '記入例：090-1234-5678'},
+                ),
+            
+        }
 
 AddressFormSet = forms.inlineformset_factory(
     parent_model=User,

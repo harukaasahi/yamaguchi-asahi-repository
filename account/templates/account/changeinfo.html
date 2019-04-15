@@ -2,12 +2,19 @@
 {% block content %}
 会員情報の変更
 <form action="" method="POST">
-    {{ form.non_field_errors }}
-    {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% csrf_token %}
     <table>
         {{ form.as_table }}
         {{ form.formset.as_table}}
-    </table>
+<!--        〒<input type="text" class="p-postal-code" name="zip31" size="3" maxlength="3">
+        ー<input type="text" class="p-postal-code" name="zip32 "size="4" maxlength="4"><br>
+        <input type="text" class="p-region" name="pref31" readonly /><br>
+        <input type="text" class="p-locality" name="addr31" readonly /><br>
+        <input type="text" class="p-street-address" /><br>
+        <input type="text" class="p-extended-address" /><br>
+-->
+    </table>         
     <button type="submit" class="btn btn-success btn-lg">確認する</button>
     <p><a href="{% url 'account:memberinfo'  pk=user.pk %}">前のページに戻る</a></p>
 </form>
