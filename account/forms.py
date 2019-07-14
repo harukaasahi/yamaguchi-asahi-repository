@@ -85,15 +85,15 @@ class AddressForm(forms.ModelForm):
                 attrs={'placeholder':'記入例:1234567',},
                 ),
             'prefecture': forms.TextInput(
-                attrs={'class': 'p-region','placeholder':'記入例:鹿児島県','value':function1(postcode)},
+                attrs={'class': 'p-region','placeholder':'記入例:鹿児島県','value':function1(640941)},
                 ),
             'city': forms.TextInput(
                 #attrsでp-locality p-street-address p-extended-addressを指定
-               attrs={'placeholder':'記入例:鹿児島市中央町','value':function2(postcode)},
+               attrs={'placeholder':'記入例:鹿児島市中央町','value':function2(640941)},
                 ),
             'zip': forms.TextInput(
                 #attrsでp-locality p-street-address p-extended-addressを指
-                attrs={'class': '','placeholder': '記入例：１０－１','value':function3(postcode)},
+                attrs={'class': '','placeholder': '記入例：１０－１','value':function3(640941)},
                 ),
             'building' : forms.TextInput(    
                #attrsでp-locality p-street-address p-extended-addressを指定
