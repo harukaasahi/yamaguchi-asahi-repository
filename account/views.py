@@ -51,6 +51,11 @@ class ChangeinfoView(OnlyYouMixin, generic.UpdateView):
     form_class = ChangeinfoForm
     template_name = 'account/changeinfo.html'
 
+    #import pandas as pd
+    #住所録のcsvファイルを読み込む
+    #csv_input = pd.read_csv(filepath_or_buffer="C:/Users/haruka/Downloads/AllPrefecture.csv", encoding="ms932", sep=",")
+    #PostCode = csv_input[csv_input["newPostal"] == postcode]
+
     def get_success_url(self):
         return resolve_url('account:confirminfo', pk=self.kwargs['pk'])
 

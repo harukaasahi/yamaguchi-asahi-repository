@@ -1,8 +1,7 @@
 from .models import Address
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-
-
+import sqlite3
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -30,43 +29,85 @@ class ModelFormWithFormSetMixin:
         saved_instance = super(ModelFormWithFormSetMixin, self).save(commit)
         self.formset.save(commit)
         return saved_instance
+    
+import pandas as pd
+import os
 
-class AddressForm(forms.ModelForm):#
+def function1(request):
+    
+    os.chdir("C:/Users/haruka/Downloads")
+    df= pd.read_csv("AllPrefecture.csv",encoding="SHIFT-JIS")
+    #conn = sqlite3.connect('db.sqlite3')
+    #conn.text_factory = lambda x: str(x, 'latin1')
+    #c = conn.cursor()
+    #c.execute("select pre where newPostal ==  (?) ",(request,))
+    #pre = str(c.fetchall())
+    #conn.commit()
+    #conn.close()
+    return (df.loc[df['newPostal'] == request, 'Pre']).iat[0]
+
+def function2(request):
+
+    os.chdir("C:/Users/haruka/Downloads")
+    df= pd.read_csv("AllPrefecture.csv",encoding="SHIFT-JIS")
+#    conn = sqlite3.connect('db.sqlite3')
+#    conn.text_factory = lambda x: str(x, 'latin1')
+#    c = conn.cursor()
+#    c.execute("select City from AddressTable where newPostal ==  (?) ",(request,))
+#    pre = str(c.fetchall())
+#    conn.close()
+#    return str(pre)
+    return (df.loc[df['newPostal'] == request, 'City']).iat[0]
+    
+
+def function3(request):
+
+    os.chdir("C:/Users/haruka/Downloads")
+    df= pd.read_csv("AllPrefecture.csv",encoding="SHIFT-JIS")
+#    conn = sqlite3.connect('db.sqlite3')
+#    conn.text_factory = lambda x: str(x, 'latin1')
+#    c = conn.cursor()
+#    c.execute("select Zips from AddressTable where newPostal ==  (?) ",(request,))
+#    pre = str(c.fetchall())
+#    conn.commit()
+#    conn.close()
+#    return str(pre)
+    return (df.loc[df['newPostal'] == request, 'Zips']).iat[0]
+
+class AddressForm(forms.ModelForm):
 
     class Meta:
         model = Address
-        fields = ('postcode', 'prefecture', 'city',
+        fields = ('postcode','prefecture', 'city',
                   'zip', 'building', 'room','tell',)
         widgets = {
             'postcode':forms.TextInput(
-                #attrsでp-postal-codeを指定
-                attrs={'class': 'p-postal-code','placeholder': '記入例：8900053',},
+                attrs={'placeholder':'記入例:1234567',},
                 ),
             'prefecture': forms.TextInput(
-                #attrsでp-regionを指定
-                attrs={'class': 'p-region','placeholder': '記入例：鹿児島県'},
+                attrs={'class': 'p-region','placeholder':'記入例:鹿児島県','value':function1(postcode)},
                 ),
             'city': forms.TextInput(
                 #attrsでp-locality p-street-address p-extended-addressを指定
-                attrs={'class': 'p-locality p-street-address p-extended-address',
-                'placeholder': '記入例：鹿児島市中央町'},
+               attrs={'placeholder':'記入例:鹿児島市中央町','value':function2(postcode)},
                 ),
             'zip': forms.TextInput(
                 #attrsでp-locality p-street-address p-extended-addressを指
-                attrs={'class': '','placeholder': '記入例：１０－１'},
+                attrs={'class': '','placeholder': '記入例：１０－１','value':function3(postcode)},
                 ),
-            'building': forms.TextInput(
-                #attrsでp-locality p-street-address p-extended-addressを指定
-                attrs={'class': '','placeholder': '記入例：キャンセビル'},
+            'building' : forms.TextInput(    
+               #attrsでp-locality p-street-address p-extended-addressを指定
+                attrs={'class': '','placeholder': '記入例：キャンセビル'},                    
                 ),
-            'room': forms.TextInput(
+            'room': forms.TextInput(               
                 attrs={'class': '','placeholder': '記入例：１２３号室'},
                 ),
             'tell': forms.TextInput(
                 attrs={'class': '','placeholder': '記入例：090-1234-5678'},
                 ),
-            
-        }
+
+            }
+
 
 AddressFormSet = forms.inlineformset_factory(
     parent_model=User,
@@ -74,6 +115,7 @@ AddressFormSet = forms.inlineformset_factory(
     form=AddressForm,
     extra=1
 )
+
 
 
 class ChangeinfoForm(ModelFormWithFormSetMixin, forms.ModelForm):
