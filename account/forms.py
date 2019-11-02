@@ -29,106 +29,102 @@ class ModelFormWithFormSetMixin:
         saved_instance = super(ModelFormWithFormSetMixin, self).save(commit)
         self.formset.save(commit)
         return saved_instance
-    
-import pandas as pd
-import os
 
-def function1(request):
-    
-    os.chdir("C:/Users/haruka/Downloads")
-    df= pd.read_csv("AllPrefecture.csv",encoding="SHIFT-JIS")
-    #conn = sqlite3.connect('db.sqlite3')
-    #conn.text_factory = lambda x: str(x, 'latin1')
-    #c = conn.cursor()
-    #c.execute("select pre where newPostal ==  (?) ",(request,))
-    #pre = str(c.fetchall())
-    #conn.commit()
-    #conn.close()
-    return (df.loc[df['newPostal'] == request, 'Pre']).iat[0]
-
-def function2(request):
-
-    os.chdir("C:/Users/haruka/Downloads")
-    df= pd.read_csv("AllPrefecture.csv",encoding="SHIFT-JIS")
-#    conn = sqlite3.connect('db.sqlite3')
-#    conn.text_factory = lambda x: str(x, 'latin1')
-#    c = conn.cursor()
-#    c.execute("select City from AddressTable where newPostal ==  (?) ",(request,))
-#    pre = str(c.fetchall())
-#    conn.close()
-#    return str(pre)
-    return (df.loc[df['newPostal'] == request, 'City']).iat[0]
-    
-
-def function3(request):
-
-    os.chdir("C:/Users/haruka/Downloads")
-    df= pd.read_csv("AllPrefecture.csv",encoding="SHIFT-JIS")
-#    conn = sqlite3.connect('db.sqlite3')
-#    conn.text_factory = lambda x: str(x, 'latin1')
-#    c = conn.cursor()
-#    c.execute("select Zips from AddressTable where newPostal ==  (?) ",(request,))
-#    pre = str(c.fetchall())
-#    conn.commit()
-#    conn.close()
-#    return str(pre)
-    return (df.loc[df['newPostal'] == request, 'Zips']).iat[0]
 
 class AddressForm(forms.ModelForm):
+
+    #辞書機能の追加を試みた(が上手くいかない)
+    #今回の変更箇所はこの1ブロックのみ
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['postcode'].widget.attrs.update({'class': 'special',})
+        self.fields['prefecture'].widget.attrs.update({'class': 'special',})
+        self.fields['city'].widget.attrs.update({'class': 'special',})    
+        self.fields['zip'].widget.attrs.update({'class': 'special',})
+        self.fields['building'].widget.attrs.update({'class': 'special',})
+        self.fields['room'].widget.attrs.update({'class': 'special',})
+        self.fields['tell'].widget.attrs.update({'class': 'special',})
+
 
     class Meta:
         model = Address
         fields = ('postcode','prefecture', 'city',
                   'zip', 'building', 'room','tell',)
+
+
+#        def __init__(self, *args, **kwargs):
+#            super().__init__(*args, **kwargs)
+#            for field in iter(self.fields):
+#                self.fields[field].widget.attrs.update({'class': 'special',})    
+
         widgets = {
             'postcode':forms.TextInput(
                 attrs={'placeholder':'記入例:1234567',},
-                ),
+               ),
             'prefecture': forms.TextInput(
-                attrs={'class': 'p-region','placeholder':'記入例:鹿児島県','value':function1(640941)},
+                attrs={'placeholder':'記入例:鹿児島県',},
                 ),
             'city': forms.TextInput(
-                #attrsでp-locality p-street-address p-extended-addressを指定
-               attrs={'placeholder':'記入例:鹿児島市中央町','value':function2(640941)},
+               #attrsでp-locality p-street-address p-extended-addressを指定
+               attrs={'placeholder':'記入例:鹿児島市中央町',},
                 ),
             'zip': forms.TextInput(
                 #attrsでp-locality p-street-address p-extended-addressを指
-                attrs={'class': '','placeholder': '記入例：１０－１','value':function3(640941)},
+               attrs={'placeholder': '記入例：１０－１',},
                 ),
             'building' : forms.TextInput(    
                #attrsでp-locality p-street-address p-extended-addressを指定
-                attrs={'class': '','placeholder': '記入例：キャンセビル'},                    
+                attrs={'placeholder': '記入例：キャンセビル',},                    
                 ),
             'room': forms.TextInput(               
-                attrs={'class': '','placeholder': '記入例：１２３号室'},
+                attrs={'placeholder': '記入例：１２３号室',},
                 ),
             'tell': forms.TextInput(
-                attrs={'class': '','placeholder': '記入例：090-1234-5678'},
+                attrs={'placeholder': '記入例：090-1234-5678',},
                 ),
 
             }
 
 
+
+
 AddressFormSet = forms.inlineformset_factory(
+
     parent_model=User,
+
     model=Address,
+
     form=AddressForm,
+
     extra=1
+
 )
 
 
-
 class ChangeinfoForm(ModelFormWithFormSetMixin, forms.ModelForm):
+
     # ユーザー情報更新フォーム
+
     # AddressFormとくっつける
+
     formset_class = AddressFormSet
 
+
+
     class Meta:
+
         model = User
+
         fields = ('email', 'last_name', 'first_name',)
 
+
+
     ''' def __init__(self, *args, **kwargs):
+
         super().__init__(*args, **kwargs)
+
         for field in self.fields.values():
+
             field.widget.attrs['class'] = 'form-control'
+
  '''
