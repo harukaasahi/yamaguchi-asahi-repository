@@ -35,15 +35,15 @@ class AddressForm(forms.ModelForm):
 
     #辞書機能の追加を試みた(が上手くいかない)
     #今回の変更箇所はこの1ブロックのみ
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['postcode'].widget.attrs.update({'class': 'special',})
-        self.fields['prefecture'].widget.attrs.update({'class': 'special',})
-        self.fields['city'].widget.attrs.update({'class': 'special',})    
-        self.fields['zip'].widget.attrs.update({'class': 'special',})
-        self.fields['building'].widget.attrs.update({'class': 'special',})
-        self.fields['room'].widget.attrs.update({'class': 'special',})
-        self.fields['tell'].widget.attrs.update({'class': 'special',})
+#    def __init__(self, *args, **kwargs):
+#        super().__init__(*args, **kwargs)
+#        self.fields['postcode'].widget.attrs.update({'class': 'special',})
+#        self.fields['prefecture'].widget.attrs.update({'class': 'special',})
+#        self.fields['city'].widget.attrs.update({'class': 'special',})  
+#        self.fields['zip'].widget.attrs.update({'class': 'special',})
+#        self.fields['building'].widget.attrs.update({'class': 'special',})
+#        self.fields['room'].widget.attrs.update({'class': 'special',})
+#        self.fields['tell'].widget.attrs.update({'class': 'special',})
 
 
     class Meta:
@@ -59,22 +59,22 @@ class AddressForm(forms.ModelForm):
 
         widgets = {
             'postcode':forms.TextInput(
-                attrs={'placeholder':'記入例:1234567',},
+                attrs={'class': 'p-postal-code','placeholder':'記入例:1234567',},
                ),
             'prefecture': forms.TextInput(
-                attrs={'placeholder':'記入例:鹿児島県',},
+                attrs={'class': 'p-region','placeholder':'記入例:鹿児島県',},
                 ),
             'city': forms.TextInput(
                #attrsでp-locality p-street-address p-extended-addressを指定
-               attrs={'placeholder':'記入例:鹿児島市中央町',},
+               attrs={'class': 'p-locality','placeholder':'記入例:鹿児島市中央町',},
                 ),
             'zip': forms.TextInput(
                 #attrsでp-locality p-street-address p-extended-addressを指
-               attrs={'placeholder': '記入例：１０－１',},
+               attrs={'class': 'p-street-address','placeholder': '記入例：１０－１',},
                 ),
             'building' : forms.TextInput(    
                #attrsでp-locality p-street-address p-extended-addressを指定
-                attrs={'placeholder': '記入例：キャンセビル',},                    
+                attrs={'class': 'p-extended-address','placeholder': '記入例：キャンセビル',},                    
                 ),
             'room': forms.TextInput(               
                 attrs={'placeholder': '記入例：１２３号室',},
