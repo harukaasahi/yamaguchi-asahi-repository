@@ -96,7 +96,7 @@ AddressFormSet = forms.inlineformset_factory(
 
     form=AddressForm,
 
-    extra=1
+    extra=0
 
 )
 

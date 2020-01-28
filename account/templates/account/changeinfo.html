@@ -3,16 +3,17 @@
 <head>
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <!-- Yubinbangojs -->
-    <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
     <title>会員情報の変更</title>
 </head>
 
 {% block content %}
 
+<script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+    
 <form class="h-adr" action="" method="POST">
+    <span class="p-country-name" style="display:none;">Japan</span>
     {{ form.non_field_errors }}
     {% csrf_token %}
-    <span class="p-country-name" style="display:none;">Japan</span>
     <table>
     {{ form.as_table }}
     {{ form.formset.as_table}}
@@ -25,7 +26,7 @@
 
 <hr>
 
-<script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+<!--<script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
 <form action="" method="POST">
     {{ form.non_field_errors }}
     {% csrf_token %}
@@ -51,5 +52,5 @@
 </table>
 <input type="submit" value="確認する">
 <p><a href="{% url 'account:memberinfo'  pk=user.pk %}">前のページに戻る</a></p>
-</form>
+</form>-->
 {% endblock content %}
