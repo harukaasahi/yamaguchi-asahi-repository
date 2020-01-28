@@ -1,0 +1,16 @@
+htmlの構造
+home
+ ログイン時
+ -logout
+ ログインしていない時
+ -login
+ -signup
+
+
+モデル
+ account
+ -User
+  -username,email,passward
+ -Address
+  -account_number(settings.AUTH_USER_MODELよりForeignkey)
+   postcode,prefecture,city,zip,building,room
