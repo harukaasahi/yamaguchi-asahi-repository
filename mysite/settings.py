@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'home.apps.HomeConfig',
     'account.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -129,6 +128,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTH_USER_MODEL = 'account.User'
 
 # ログイン後のurl
-LOGIN_REDIRECT_URL = 'home:home'
+LOGIN_REDIRECT_URL = 'account:home'
 # ログアウト後のurl
-LOGOUT_REDIRECT_URL = 'home:home'
+LOGOUT_REDIRECT_URL = 'account:home'

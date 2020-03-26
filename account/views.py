@@ -14,6 +14,9 @@ from django.contrib.auth import get_user_model
     address = Address.object.filter(Account_number=account_number)
  '''
 
+def HomeView(request):
+    return render(request, "account/index.html")
+
 
 class SignUpView(generic.CreateView):
     # 会員登録

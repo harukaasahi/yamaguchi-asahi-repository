@@ -65,7 +65,8 @@ class Address(models.Model):
     postcode = models.CharField(
         '郵便番号', validators=[postal_code_regex], max_length=7, blank=True)  # 郵便番号
     prefecture = models.CharField('都道府県', max_length=10, blank=True)  # 県
-    city = models.CharField('市区町村', max_length=30, blank=True)  # 市町村区
+    city = models.CharField('市(郡)区村', max_length=30, blank=True)  # 市区村
+    town = models.CharField('町', max_length=30, blank=True)  # 町
     zip = models.CharField('丁番号', max_length=10, blank=True)  # 丁番号
     building = models.CharField('建物名', max_length=30, blank=True)  # 建物
     room = models.CharField('部屋番号', max_length=10, blank=True)  # 部屋番号

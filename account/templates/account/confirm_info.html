@@ -1,7 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>会員情報の変更</h1>
-<p>以下の内容でお間違いないでしょうか。よろしければ"はい"を、もう一度訂正する場合は"訂正する"をクリックしてください。</p>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+<h3>会員情報の変更</h3>
+<p>以下の内容でお間違いないでしょうか。よろしければ"はい"を、もう一度訂正する場合は"いいえ"をクリックしてください。</p>
 <ul>
     <table class="table">
         <tbody>
@@ -21,26 +25,25 @@
                 <th>名</th>
                 <td>{{ user.first_name }}</td>
             </tr>
+            <tr>
+                <th>住所</th>
+                <td><ol>{% for ad in address %}
+                    <div>
+                        <li>
+                            <p>郵便番号: {{ ad.postcode}}</p>
+                            <p>都道府県: {{ ad.prefecture}}</p>
+                            <p>市(郡)区村: {{ ad.city}}</p>
+                            <p>町: {{ ad.town}}</p>
+                            <p>丁番号: {{ ad.zip}}</p>
+                            <p>建物名: {{ ad.building}}</p>
+                            <p>部屋番号: {{ ad.room}}</p>
+                            <p>電話番号: {{ ad.tell }}</p>
+                        </li>
+                    </div>
+                        {% endfor %}</ol></td>
+            </tr>
         </tbody>
     </table>
-    <p>
-        <h3>住所</h3>
-    </p>
-    <ol>{% for ad in address %}
-        <div>
-            <li>
-                <p>郵便番号: {{ ad.postcode}}</p>
-                <p>都道府県: {{ ad.prefecture}}</p>
-                <p>市区町村: {{ ad.city}}</p>
-                <p>その他の住所: {{ ad.zip}}</p>
-                <p>建物名: {{ ad.building}}</p>
-                <p>部屋番号: {{ ad.room}}</p>
-                <p>電話番号: {{ ad.tell}}</p>
-            </li>
-
-        </div>
-        {% endfor %}</ol>
-</ul>
 <p><a type=button href="{% url 'account:succeed' %}">はい</a></p>
-<p><a href="{% url 'account:changeinfo' pk=user.pk %}">訂正する</a></p>
+<p><a href="{% url 'account:changeinfo' pk=user.pk %}">いいえ</a></p>
 {% endblock %}

@@ -9,15 +9,17 @@
 {% block content %}
 
 <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
-    
+ 
+注)郵便番号はハイフンを抜かし、半角数字7桁でご記入ください。住所が自動で入力されます。
+
 <form class="h-adr" action="" method="POST">
-    <span class="p-country-name" style="display:none;">Japan</span>
-    {{ form.non_field_errors }}
-    {% csrf_token %}
-    <table>
-    {{ form.as_table }}
-    {{ form.formset.as_table}}
-    </table>         
+        {{ form.non_field_errors }}
+        {% csrf_token %}
+        <table>
+                <span class="p-country-name" style="display:none;">Japan</span>  
+                {{ form.as_table }}
+                {{ form.formset.as_table }}
+        </table>      
 <!--    <input name="textBox1" type="text" value="" />
     <input type="button" value="Search" onclick="onButtonClick();" />-->
 <button type="submit" class="btn btn-success btn-lg">確認する</button>

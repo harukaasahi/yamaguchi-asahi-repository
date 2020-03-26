@@ -48,7 +48,7 @@ class AddressForm(forms.ModelForm):
 
     class Meta:
         model = Address
-        fields = ('postcode','prefecture', 'city',
+        fields = ('postcode','prefecture', 'city', 'town', 
                   'zip', 'building', 'room','tell',)
 
 
@@ -66,15 +66,19 @@ class AddressForm(forms.ModelForm):
                 ),
             'city': forms.TextInput(
                #attrsでp-locality p-street-address p-extended-addressを指定
-               attrs={'class': 'p-locality','placeholder':'記入例:鹿児島市中央町',},
+               attrs={'class': 'p-locality','placeholder':'記入例:鹿児島市',},
+                ),
+            'town': forms.TextInput(
+                #attrsでp-locality p-street-address p-extended-addressを指
+               attrs={'class': 'p-street-address','placeholder': '記入例：中央町',},
                 ),
             'zip': forms.TextInput(
                 #attrsでp-locality p-street-address p-extended-addressを指
-               attrs={'class': 'p-street-address','placeholder': '記入例：１０－１',},
-                ),
+               attrs={'class': 'p-extended-address','placeholder': '記入例：１０－１',},
+                ),    
             'building' : forms.TextInput(    
                #attrsでp-locality p-street-address p-extended-addressを指定
-                attrs={'class': 'p-extended-address','placeholder': '記入例：キャンセビル',},                    
+                attrs={'placeholder': '記入例：キャンセビル',},                    
                 ),
             'room': forms.TextInput(               
                 attrs={'placeholder': '記入例：１２３号室',},
